@@ -7,3 +7,4 @@ def seg_distance(line_x, line_y, seg_x, seg_y):
 
 def seg_angle(line_x, line_y, seg_x, seg_y):
     return ((math.atan2(seg_y - line_y, (-(seg_x - line_x)))/(math.pi/2)) * 16384 )
+#                                       east is 0: invert dx             90 deg in binary angle
