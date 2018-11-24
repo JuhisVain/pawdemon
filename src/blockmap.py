@@ -22,7 +22,7 @@ class Blockmap:
     #  BLOCKLIST:
     #      16bit: 0
     #      indexes of linedefs with any part inside block
-    #      16bit: -1
+    #      16bit: -1 or 0xFFFF
     #  repeat
     
     def __init__(self, x_grid_origin, y_grid_origin, col_count, row_count):
@@ -38,10 +38,15 @@ class Blockmap:
 
     def to_binary(self):
         n_count = col_count * row_count
-        blocklist_offsets = bytearray(n_count * 2)  # This is actually useless until map compilation
+        blocklist_offsets = bytearray(n_count * 2)
         insert_ushort(0, self.blocklist_offsets, 4 + n_count)  # 4 for header
 
-        blocklist_array = 
+        blocklist_array = bytearray(0)
+        for blocklist in blocklistlist:
+            blocklist_array += value_to_ushort(0) + bytearray(blocklist) + value_to_ushort(65535)
+            
+        for i in range(2, n_count, 2):
+            insert_ushort() #  let's do this later
 
 
 def insert_ushort(index, location, ushort):
