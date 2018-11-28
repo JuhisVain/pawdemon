@@ -36,7 +36,8 @@ class Blockmap:
         #  blocklist pointers:
         blocklist_offsets = bytearray(n_count * 2)
         #  First blocklist's offset:
-        insert_ushort(0, blocklist_offsets, 4 + n_count)  # 4 for header, n_count for offsets
+        offset = 4 + n_count  # 4 for header, n_count for offsets
+        insert_ushort(0, blocklist_offsets, offset)
 
         blocklist_array = bytearray(0)
 
@@ -44,7 +45,8 @@ class Blockmap:
         for blocklist in self.blocklistlist:
             blocklist_array += value_to_ushort(0) + list_to_ushort_bytes(blocklist) + value_to_ushort(65535)
             if iter_count < (n_count * 2): #  Don't do offset after last blocklist
-                insert_ushort(iter_count, blocklist_offsets, len(blocklist) + ) # TODODODODODO
+                offset += len(blocklist) + 2  # +2 for 0x0000 & 0xFFFF
+                insert_ushort(iter_count, blocklist_offsets, offset)
                 iter_count += 2
 
         return struct.pack('<4H', self.x_grid_origin, self.y_grid_origin,
