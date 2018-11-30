@@ -6,4 +6,4 @@ class Mapheader:
         self.map_string = map_string
 
     def to_binary(self):
-        return bytes(self.map_string, 'utf-8')
+        return struct.pack('<8s', bytes(self.map_string, 'utf-8'))

@@ -8,6 +8,10 @@ import reject
 import blockmap
 import mapheader
 import sector
+import ssector
+import seg
+import node
+import compiler
 
 import tool
 
@@ -59,7 +63,27 @@ def main():
 
     #  That's the simple stuff...
 
+    ssec0 = ssector.Ssector(4, 0)
+    ssec1 = ssector.Ssector(0, 4)
     
+    seg0 = seg.Seg(0,1, 16384, 0, 0, 0)
+    seg1 = seg.Seg(1,2, 0, 1, 0, 0)
+    seg2 = seg.Seg(2,3, -16384, 2, 0, 0)
+    seg3 = seg.Seg(3,0, -32768, 3, 0, 0)
+
+    node0 = node.Node(64,64, 0,128, 256,0,0,256, 0,0,0,0, -32768 + 0, -32768 + 1)
+
+    compiler.compile_map(maph,
+                         [vert0,vert1,vert2,vert3],
+                         [playerstart],
+                         [sect0],
+                         [sidef0,sidef1,sidef2,sidef3],
+                         [lidef0,lidef1,lidef2,lidef3],
+                         [rej],
+                         [blmap],
+                         [ssec0,ssec1],
+                         [seg0,seg1,seg2,seg3],
+                         [node0])
 
 if __name__ == "__main__":
     main()

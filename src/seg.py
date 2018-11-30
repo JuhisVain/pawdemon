@@ -1,7 +1,7 @@
 import struct
 
 
-class seg:
+class Seg:
     #  12 bytes, 6 * 16bits
 
     #  Segment of a linedef bordering subsector
