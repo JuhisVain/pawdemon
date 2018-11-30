@@ -2,9 +2,12 @@ import struct
 
 import thing
 import sidedef
+import linedef
 import vertex
 import reject
 import blockmap
+import mapheader
+import sector
 
 import tool
 
@@ -18,11 +21,45 @@ def main():
     #with open('test', 'w+b') as testfile:
     #    testfile.write(tr.to_binary())
 
-    bl = blockmap.Blockmap(1, 2, 3, 2)
-    bl.blocklistlist = [[1,2,5], [6,7,8,10], [1,3,5,7,9], [2,4], [0,11,12], [3,2,1,0]]
+    #bl = blockmap.Blockmap(1, 2, 3, 2)
+    #bl.blocklistlist = [[1,2,5], [6,7,8,10], [1,3,5,7,9], [2,4], [0,11,12], [3,2,1,0]]
 
-    with open('test', 'w+b') as testfile:
-        testfile.write(bl.to_binary())
+    #maph = mapheader.Mapheader("E1M1")
+    
+    #with open('test', 'w+b') as testfile:
+    #    testfile.write(maph.to_binary())
+
+    # let's try to manually create a level:
+
+    maph = mapheader.Mapheader("MAP01")  # doom 2
+    
+    vert0 = vertex.Vertex(64, 64)
+    vert1 = vertex.Vertex(64, 192)
+    vert2 = vertex.Vertex(192, 192)
+    vert3 = vertex.Vertex(192, 64)
+
+    playerstart = thing.Thing(96, 96, 0, 1, 7)  # flip on first 3 bits of options just in case
+
+    sect0 = sector.Sector(0, 256, 'FLOOR0_1', 'FLOOR0_3', 150, 0, 0)
+
+    sidef0 = sidedef.Sidedef(0, 0, 'CEMENT1', 'CEMENT1', 'CEMENT1', 0)
+    sidef1 = sidedef.Sidedef(0, 0, 'CEMENT2', 'CEMENT2', 'CEMENT2', 0)
+    sidef2 = sidedef.Sidedef(0, 0, 'CEMENT3', 'CEMENT3', 'CEMENT3', 0)
+    sidef3 = sidedef.Sidedef(0, 0, 'CEMENT4', 'CEMENT4', 'CEMENT4', 0)
+
+    lidef0 = linedef.Linedef(0, 1, 0, 0, 0, 0, -1)
+    lidef1 = linedef.Linedef(1, 2, 0, 0, 0, 1, -1)
+    lidef2 = linedef.Linedef(2, 3, 0, 0, 0, 2, -1)
+    lidef3 = linedef.Linedef(3, 0, 0, 0, 0, 3, -1)
+
+    rej = reject.Reject(1)
+
+    blmap = blockmap.Blockmap(0, 0, 2, 2)
+    blmap.blocklistlist = [[0,3],[3,2],[1,0],[2,1]]
+
+    #  That's the simple stuff...
+
+    
 
 if __name__ == "__main__":
     main()
