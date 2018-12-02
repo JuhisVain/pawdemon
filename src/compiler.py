@@ -5,19 +5,26 @@ from functools import reduce
 def compile_map(mapheader, vertices, things, sectors, sidedefs, linedefs,
                 rejects, blockmaps, ssectors, segs, nodes):
 
+    # a PWAD will start with PWAD followed by:
+    # 32-bit int:  number of lumps
+    # 32-bit int: location of directory (in bytes?)
+
     # The directory:
+    #   offset in 8-bits
+    #   size in 8-bits
     #   8-byte string
-    #   ???offset in 8-bits???
-    #   ???size in 8-bits???
     
     directory_buffer = bytearray(0)
     
     with open('test', 'w+b') as testfile:
-        testfile.write(bytes('PWAD    test1234', 'utf-8'))  # that's 16 bytes
-        cur_offset = 16
+        testfile.write(bytes('PWAD', 'utf-8') + struct.pack('<II', 11, 0x180))
+        #                                         WARNING!         ^^  ^^^^^
+
+        # that's 12 bytes
+        cur_offset = 12
 
         # The map's label should not need the shorts set to zero here:
-        directory_buffer += mapheader.to_binary()# + struct.pack('<II', 0, 0)
+        directory_buffer += struct.pack('<II', 0, 0) + mapheader.to_binary()
 
         # THINGS:
         things_lump = form_lump(things)
@@ -101,6 +108,8 @@ def compile_map(mapheader, vertices, things, sectors, sidedefs, linedefs,
         directory_buffer += struct.pack('<8s', bytes('BLOCKMAP', 'utf-8'))
         cur_offset += blockmaps_lump_size
 
+
+        testfile.write(bytearray(15))
         # write directory:
         testfile.write(directory_buffer)
 

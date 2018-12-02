@@ -64,7 +64,7 @@ def main():
     #  That's the simple stuff...
 
     ssec0 = ssector.Ssector(4, 0)
-    ssec1 = ssector.Ssector(0, 4)
+    #ssec1 = ssector.Ssector(0, 4)
     
     seg0 = seg.Seg(0,1, 16384, 0, 0, 0)
     seg1 = seg.Seg(1,2, 0, 1, 0, 0)
@@ -81,7 +81,7 @@ def main():
                          [lidef0,lidef1,lidef2,lidef3],
                          [rej],
                          [blmap],
-                         [ssec0,ssec1],
+                         [ssec0], #,ssec1],
                          [seg0,seg1,seg2,seg3],
                          [node0])
 
