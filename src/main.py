@@ -51,10 +51,10 @@ def main():
     sidef2 = sidedef.Sidedef(0, 0, 'CEMENT3', 'CEMENT3', 'CEMENT3', 0)
     sidef3 = sidedef.Sidedef(0, 0, 'CEMENT4', 'CEMENT4', 'CEMENT4', 0)
 
-    lidef0 = linedef.Linedef(0, 1, 0, 0, 0, 0, -1)
-    lidef1 = linedef.Linedef(1, 2, 0, 0, 0, 1, -1)
-    lidef2 = linedef.Linedef(2, 3, 0, 0, 0, 2, -1)
-    lidef3 = linedef.Linedef(3, 0, 0, 0, 0, 3, -1)
+    lidef0 = linedef.Linedef(0, 1, 0, 0, 0, 0, 0xffff)
+    lidef1 = linedef.Linedef(1, 2, 0, 0, 0, 1, 0xffff)
+    lidef2 = linedef.Linedef(2, 3, 0, 0, 0, 2, 0xffff)
+    lidef3 = linedef.Linedef(3, 0, 0, 0, 0, 3, 0xffff)
 
     rej = reject.Reject(1)
 
@@ -68,10 +68,10 @@ def main():
     
     seg0 = seg.Seg(0,1, 16384, 0, 0, 0)
     seg1 = seg.Seg(1,2, 0, 1, 0, 0)
-    seg2 = seg.Seg(2,3, -16384, 2, 0, 0)
-    seg3 = seg.Seg(3,0, -32768, 3, 0, 0)
+    seg2 = seg.Seg(2,3, 0x8000, 2, 0, 0)
+    seg3 = seg.Seg(3,0, 0xc000, 3, 0, 0)
 
-    node0 = node.Node(64,64, 0,128, 256,0,0,256, 0,0,0,0, -32768 + 0, -32768 + 1)
+    node0 = node.Node(64,64, 0,128, 256,0,0,256, 0,0,0,0, 0xc000 + 0, 0xc000 + 1)
 
     compiler.compile_map(maph,
                          [vert0,vert1,vert2,vert3],

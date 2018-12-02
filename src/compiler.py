@@ -1,6 +1,7 @@
 import struct
 from functools import reduce
 
+
 def compile_map(mapheader, vertices, things, sectors, sidedefs, linedefs,
                 rejects, blockmaps, ssectors, segs, nodes):
 
@@ -18,11 +19,89 @@ def compile_map(mapheader, vertices, things, sectors, sidedefs, linedefs,
         # The map's label should not need the shorts set to zero here:
         directory_buffer += mapheader.to_binary() + struct.pack('<HH', 0, 0)
 
-        things_lump = reduce(lambda x, y : x + y, list(map(lambda x : x.to_binary(), things)))
+        # THINGS:
+        things_lump = form_lump(things)
         things_lump_size = len(things_lump)
         testfile.write(things_lump)
         directory_buffer += struct.pack('<8s', bytes('THINGS', 'utf-8'))
         directory_buffer += struct.pack('<HH', cur_offset, things_lump_size)
         cur_offset += things_lump_size
 
-        testfile.write(directory_buffer) #  testing now -> Seems OK
+        # LINEDEFS:
+        linedefs_lump = form_lump(linedefs)
+        linedefs_lump_size = len(linedefs_lump)
+        testfile.write(linedefs_lump)
+        directory_buffer += struct.pack('<8s', bytes('LINEDEFS', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, linedefs_lump_size)
+        cur_offset += linedefs_lump_size
+
+        # SIDEDEFS
+        sidedefs_lump = form_lump(sidedefs)
+        sidedefs_lump_size = len(sidedefs_lump)
+        testfile.write(sidedefs_lump)
+        directory_buffer += struct.pack('<8s', bytes('SIDEDEFS', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, sidedefs_lump_size)
+        cur_offset += sidedefs_lump_size
+
+        # VERTEXES
+        vertexes_lump = form_lump(vertices)  # olololo
+        vertexes_lump_size = len(vertexes_lump)
+        testfile.write(vertexes_lump)
+        directory_buffer += struct.pack('<8s', bytes('VERTEXES', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, vertexes_lump_size)
+        cur_offset += vertexes_lump_size
+
+        # SEGS
+        segs_lump = form_lump(segs)
+        segs_lump_size = len(segs_lump)
+        testfile.write(segs_lump)
+        directory_buffer += struct.pack('<8s', bytes('SEGS', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, segs_lump_size)
+        cur_offset += segs_lump_size
+
+        # SSECTORS
+        ssectors_lump = form_lump(ssectors)
+        ssectors_lump_size = len(ssectors_lump)
+        testfile.write(ssectors_lump)
+        directory_buffer += struct.pack('<8s', bytes('SSECTORS', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, ssectors_lump_size)
+        cur_offset += ssectors_lump_size
+
+        # NODES
+        nodes_lump = form_lump(nodes)
+        nodes_lump_size = len(nodes_lump)
+        testfile.write(nodes_lump)
+        directory_buffer += struct.pack('<8s', bytes('NODES', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, nodes_lump_size)
+        cur_offset += nodes_lump_size
+
+        # SECTORS
+        sectors_lump = form_lump(sectors)
+        sectors_lump_size = len(sectors_lump)
+        testfile.write(sectors_lump)
+        directory_buffer += struct.pack('<8s', bytes('SECTORS', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, sectors_lump_size)
+        cur_offset += sectors_lump_size
+
+        # REJECT
+        rejects_lump = form_lump(rejects)
+        rejects_lump_size = len(rejects_lump)
+        testfile.write(rejects_lump)
+        directory_buffer += struct.pack('<8s', bytes('REJECT', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, rejects_lump_size)
+        cur_offset += rejects_lump_size
+
+        # BLOCKMAP
+        blockmaps_lump = form_lump(blockmaps)
+        blockmaps_lump_size = len(blockmaps_lump)
+        testfile.write(blockmaps_lump)
+        directory_buffer += struct.pack('<8s', bytes('BLOCKMAP', 'utf-8'))
+        directory_buffer += struct.pack('<HH', cur_offset, blockmaps_lump_size)
+        cur_offset += blockmaps_lump_size
+
+        # write directory:
+        testfile.write(directory_buffer)
+
+
+def form_lump(lumplist):
+    return reduce(lambda x, y: x + y, list(map(lambda x: x.to_binary(), lumplist)))
