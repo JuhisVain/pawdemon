@@ -1,14 +1,28 @@
 import vertex
 
+default_wall_texture = 'CEMENT1'
+default_flat_texture = 'FLOOR0_1'
+default_floor_height = 0
+default_ceiling_height = 0
+
 
 class Abstract_sector:
     def __init__(self, v0, v1, v2):
         
         # Initially only hold minimum amount to form triangle
         self.vertices = [v0, v1, v2]
+        self.sidef_texs = [default_wall_texture, default_wall_texture, default_wall_texture]
+        #                 v0 -> v1               v1 -> v2              v2 -> v0
+
+        self.floor_flat = default_flat_texture
+        self.ceiling_flat = default_flat_texture
+
+        self.floor_height = default_floor_height
+        self.ceiling_height = default_ceiling_height
+
         # Can't find object field accessor overloading anywhere...
         self.__ffs__inverted_sector = False  # If set to true with invert(), asector is inverted
-        
+
         side_num = (v1.x - v0.x)*(v2.y - v0.y) - (v2.x - v0.x)*(v1.y - v0.y)
         if side_num > 0:  # v2 on left of line0/1
             self.vertices.reverse()

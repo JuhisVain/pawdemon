@@ -26,7 +26,7 @@ class Sector:
         self.tag_trigger = tag_trigger
 
     def to_binary(self):
-        return struct.pack("<HH8s8sHHH",
+        return struct.pack("<hh8s8sHHH",
                            self.floor_height,
                            self.ceiling_height,
                            bytes(self.floor_flat, 'utf-8'),
