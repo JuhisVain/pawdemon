@@ -14,6 +14,9 @@ class Level:
     def add_sector(self, abstract_sector):
         self.abstract_sectors.append(abstract_sector)
 
+    def to_binary(self):
+        
+
 
 def doom1_head(level_number):
     if level_number < 1 or level_number > 36:

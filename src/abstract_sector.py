@@ -1,4 +1,5 @@
-import vertex
+from sector import Sector
+from sidedef import Sidedef
 
 default_wall_texture = 'CEMENT1'
 default_flat_texture = 'FLOOR0_1'
@@ -9,10 +10,23 @@ default_ceiling_height = 0
 class Abstract_sector:
     def __init__(self, v0, v1, v2):
         
-        # Initially only hold minimum amount to form triangle
+        # Initially only hold minimum amount to form CLOSED triangle
         self.vertices = [v0, v1, v2]
-        self.sidef_texs = [default_wall_texture, default_wall_texture, default_wall_texture]
-        #                 v0 -> v1               v1 -> v2              v2 -> v0
+        self.sidefs = [Sidedef(0, 0,  # xy offsets
+                               default_wall_texture,  # up
+                               default_wall_texture,  # low
+                               default_wall_texture,  # mid
+                               0),  # facing sec must be updated during intermediate forming
+                       Sidedef(0, 0,
+                               default_wall_texture,
+                               default_wall_texture,
+                               default_wall_texture,
+                               0),
+                       Sidedef(0, 0,
+                               default_wall_texture,
+                               default_wall_texture,
+                               default_wall_texture,
+                               0)]
 
         self.floor_flat = default_flat_texture
         self.ceiling_flat = default_flat_texture
@@ -20,7 +34,12 @@ class Abstract_sector:
         self.floor_height = default_floor_height
         self.ceiling_height = default_ceiling_height
 
-        # Can't find object field accessor overloading anywhere...
+        self.light = 150
+        self.special = 0
+        self.tag_trigger = 0
+
+        self.things = []  # Not sure whether or not this should be stored here
+
         self.__ffs__inverted_sector = False  # If set to true with invert(), asector is inverted
 
         side_num = (v1.x - v0.x)*(v2.y - v0.y) - (v2.x - v0.x)*(v1.y - v0.y)
@@ -28,6 +47,9 @@ class Abstract_sector:
             self.vertices.reverse()
         elif side_num == 0:  # v2 in line with line0/1
             print("WARNING : Formed line instead of triangle.")
+
+    def add_thing(self, new_thing):
+        self.things.append(new_thing)
 
     def add_vertex(self, vertexn, between1, between2):
         # Add a new vertex between vertices between1 & between2
@@ -71,3 +93,20 @@ class Abstract_sector:
         else:
             self.__ffs__inverted_sector = False
         self.vertices.reverse()
+
+    # TODO: check for a fancy synonym for 'form':
+    def form_intermediate_representation(self):
+
+        absec_as_sec = Sector(self.floor_height, self.ceiling_height,
+                              self.floor_flat, self.ceiling_flat,
+                              self.light, self.special, self.tag_trigger)
+
+        updated_sidefs = list(map(lambda sd: sd.set_facing_sector(absec_as_sec),
+                                  self.sidefs))
+
+        # todo:
+        # Will have to implement addittional linedef data into this class
+        return [self.vertices,
+                absec_as_sec,
+                updated_sidefs,
+                self.things]

@@ -1,5 +1,6 @@
 *~
 *.el
 *#
+.#*
 __pycache__
 test

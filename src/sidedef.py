@@ -16,7 +16,14 @@ class Sidedef:
         self.middle_tex = middle_tex
         self.facing_sector = facing_sector
 
+    def set_facing_sector(self, facing):
+        self.facing_sector = facing
+
     def to_binary(self):
+        if not isinstance(self.facing_sector, int):
+            print("ERROR in sidedef to binary. Facing sector not index.")
+            return 'ERROR'
+
         return struct.pack("<HH8s8s8sH", self.x_offset, self.y_offset,
                            bytes(self.upper_tex, 'utf-8'),
                            bytes(self.lower_tex, 'utf-8'),
