@@ -1,13 +1,17 @@
 import struct
 from functools import reduce
 
+def compile_project(project):
+    # The 'PWAD'+2 ints should be written here
+    # mapcar compilemap on project's level list or whatever python does
+    # where to calc lump counts and file pointers?
 
 def compile_map(mapheader, vertices, things, sectors, sidedefs, linedefs):
                 #rejects, blockmaps, ssectors, segs, nodes):
 
     # a PWAD will start with PWAD followed by:
     # 32-bit int:  number of lumps
-    # 32-bit int: location of directory (in bytes?)
+    # 32-bit int: location of directory
 
     # The directory:
     #   offset in 8-bits

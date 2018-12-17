@@ -77,10 +77,17 @@ class Abstract_sector:
                 b2_index = i
 
         if b1_index >= 0 and b2_index >= 0:
+            sidefn = Sidedef(0, 0,
+                             default_wall_texture,
+                             default_wall_texture,
+                             default_wall_texture,
+                             0)
             if b1_index+1 == b2_index:
                 self.vertices.insert(b2_index, vertexn)
-            elif b1_index == len(self.vertices-1) and b2_index == 0:
+                self.sidefs.insert(b2_index, sidefn)
+            elif b1_index == len(self.vertices)-1 and b2_index == 0:
                 self.vertices.append(vertexn)
+                self.sidefs.append(sidefn)
             else:
                 print("ERROR : There is no such line in abstract sector.")
                 return False
@@ -104,8 +111,6 @@ class Abstract_sector:
         updated_sidefs = list(map(lambda sd: sd.set_facing_sector(absec_as_sec),
                                   self.sidefs))
 
-        # todo:
-        # Will have to implement addittional linedef data into this class
         return [self.vertices,
                 absec_as_sec,
                 updated_sidefs,
