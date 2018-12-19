@@ -108,6 +108,7 @@ class Abstract_sector:
                               self.floor_flat, self.ceiling_flat,
                               self.light, self.special, self.tag_trigger)
 
+        # This is proly not needed:
         updated_sidefs = list(map(lambda sd: sd.set_facing_sector(absec_as_sec),
                                   self.sidefs))
 
