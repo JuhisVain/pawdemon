@@ -1,4 +1,7 @@
 from linedef import Linedef
+from sidedef import Sidedef
+from vertex import Vertex
+from thing import Thing
 
 
 class Level:
@@ -39,9 +42,9 @@ class Level:
             for thing in air[3]:
                 level_things.append(thing)
 
-        return [self.level_number,
-                level_vertices,
-                level_linedefs,
-                level_sectors,
-                level_sidedefs,
-                level_things]
+        return [self.number,  # 0
+                level_vertices,     # 1
+                level_linedefs,     # 2
+                level_sectors,      # 3
+                level_sidedefs,     # 4
+                level_things]       # 5

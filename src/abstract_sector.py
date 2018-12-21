@@ -4,7 +4,7 @@ from sidedef import Sidedef
 default_wall_texture = 'CEMENT1'
 default_flat_texture = 'FLOOR0_1'
 default_floor_height = 0
-default_ceiling_height = 0
+default_ceiling_height = 196
 
 
 class Abstract_sector:
@@ -114,5 +114,5 @@ class Abstract_sector:
 
         return [self.vertices,
                 absec_as_sec,
-                updated_sidefs,
+                self.sidefs,
                 self.things]

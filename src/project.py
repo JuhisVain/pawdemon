@@ -9,8 +9,13 @@ class Project:
         self.doom_version = doom_version
         self.levels = []
 
-    def add_level(self, level_number):
-        self.levels.append(Level(level_number))
+    def add_level_by_num(self, level_number):
+        new_level = Level(level_number)
+        self.levels.insert(level_number-1, new_level)
+        return new_level
+
+    def add_level(self, level):
+        self.levels.append(level)
 
     def compile(self):
         compiler.compile_project(self)

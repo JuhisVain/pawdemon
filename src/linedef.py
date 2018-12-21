@@ -21,6 +21,6 @@ class Linedef:
         self.l_side_index = l_side_index
 
     def to_binary(self):
-        return struct.pack("<HHHHHHH", self.start_index, self.end_index,
+        return struct.pack("<7h", self.start_index, self.end_index,
                            self.flags, self.line_type, self.tag_trigger,
                            self.r_side_index, self.l_side_index)
