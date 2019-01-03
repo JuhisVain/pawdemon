@@ -32,13 +32,13 @@ class Level:
                 sidedef_index = len(level_sidedefs)
                 level_sidedefs.append(air[2][i])
 
-                if (i + 1) < len(air[0]):
+                if (i + 1) < len(air[0]):  # normie linedefs
                     level_linedefs.append(Linedef(vertex_index+i,
                                                   vertex_index+i+1,
                                                   0, 0, 0,
                                                   sidedef_index,
                                                   -1))
-                elif (i + 1) == len(air[0]):
+                elif (i + 1) == len(air[0]):  # closing linedef
                     level_linedefs.append(Linedef(vertex_index+i,
                                                   vertex_index,
                                                   0, 0, 0,
