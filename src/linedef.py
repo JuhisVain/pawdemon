@@ -20,6 +20,18 @@ class Linedef:
         self.r_side_index = r_side_index
         self.l_side_index = l_side_index
 
+    def __eq__(self, other):
+        ssi = self.start_index
+        sei = self.end_index
+        osi = other.start_index
+        oei = other.end_index
+        if ssi == osi and sei == oei:
+            print("Error : Duplicate start - end linedef")
+            return True  # Fix if causes problems
+        if ssi == oei and sei == osi:
+            return True
+        return False
+
     def to_binary(self):
         return struct.pack("<7h", self.start_index, self.end_index,
                            self.flags, self.line_type, self.tag_trigger,

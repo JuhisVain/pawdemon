@@ -25,25 +25,54 @@ class Level:
             vertex_index = len(level_vertices)  # start at zero, counts verts as added
             this_sector = len(level_sectors)
             level_sectors.append(air[1])  # sector
+
+            if vertex_index > 0:  # ???
+                vertex_index -= 1
+
             for i in range(len(air[0])):  # vertices, sidedefs & linedefs
-                level_vertices.append(air[0][i])  # vertices
+
+                # Add vertices to SET, form linedefs:
+                # Figure out starting vertex's index:
+                start_vert = find_from_array(air[0][i], level_vertices)
+                print("Start vert: " + str(start_vert))
+                if start_vert == -1:
+                    start_vert = vertex_index + i
+                    print("---overridden: " + str(start_vert))
+                    level_vertices.append(air[0][i])  # vertices
+                # else: do nothing, vertex already in array and start_vert set
+
+                # Figure out ending vertex's index:
+                if (i + 1) < len(air[0]):  # Next vert in arg array is next vert
+                    
+                    end_vert = find_from_array(air[0][i+1], level_vertices)
+                    print("End vert for MIDDLE: " + str(end_vert))
+                    if end_vert == -1:
+                        end_vert = vertex_index + i +1
+                        print("---overridden: " + str(end_vert))
+                        level_vertices.append(air[0][i+1])  # fuck it
+                elif (i + 1) == len(air[0]):  # First vert in arg array is next vert
+                    end_vert = find_from_array(air[0][0], level_vertices)
+                    print("End vert at end: " + str(end_vert))
 
                 air[2][i].set_facing_sector(this_sector)  # sidedefs
                 sidedef_index = len(level_sidedefs)
                 level_sidedefs.append(air[2][i])
 
-                if (i + 1) < len(air[0]):  # normie linedefs
-                    level_linedefs.append(Linedef(vertex_index+i,
-                                                  vertex_index+i+1,
-                                                  0, 0, 0,
-                                                  sidedef_index,
-                                                  -1))
-                elif (i + 1) == len(air[0]):  # closing linedef
-                    level_linedefs.append(Linedef(vertex_index+i,
-                                                  vertex_index,
-                                                  0, 0, 0,
-                                                  sidedef_index,
-                                                  -1))
+                print("XXXMaking lindef with: start " +str(start_vert)+ " and end: " +str(end_vert))
+
+                temp_linedef = Linedef(start_vert,
+                                       end_vert,
+                                       0, 0, 0,
+                                       sidedef_index,
+                                       -1)
+                lidef_index = find_from_array(temp_linedef, level_linedefs)
+                if lidef_index == -1:
+                    level_linedefs.append(temp_linedef)
+                else:
+                    if level_linedefs[lidef_index].l_side_index != -1:
+                        print("Error : Linedef already two-sided")
+                        # if so, dunno how to fix
+                    level_linedefs[lidef_index].l_side_index = sidedef_index
 
             for thing in air[3]:  # things
                 level_things.append(thing)
@@ -54,3 +83,10 @@ class Level:
                 level_sectors,      # 3
                 level_sidedefs,     # 4
                 level_things]       # 5
+
+
+def find_from_array(element, array):  # from unordered array, returns index
+    for i in range(len(array)):
+        if element == array[i]:
+            return i
+    return -1
