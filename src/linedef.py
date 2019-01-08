@@ -32,6 +32,17 @@ class Linedef:
             return True
         return False
 
+    def set_flag(self, shift, value):
+        if value != 0 and value != 1:
+            print("Error : Bad bit value for linedef flag: " +
+                  str(value))
+            return
+
+        XORMASK = 0xffff
+        shiftmask = pow(2, shift)
+        value <<= shift
+        self.flags = self.flags & (XORMASK ^ shiftmask) | value
+
     def to_binary(self):
         return struct.pack("<7h", self.start_index, self.end_index,
                            self.flags, self.line_type, self.tag_trigger,

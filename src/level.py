@@ -34,10 +34,8 @@ class Level:
                 # Add vertices to SET, form linedefs:
                 # Figure out starting vertex's index:
                 start_vert = find_from_array(air[0][i], level_vertices)
-                print("Start vert: " + str(start_vert))
                 if start_vert == -1:
                     start_vert = vertex_index + i
-                    print("---overridden: " + str(start_vert))
                     level_vertices.append(air[0][i])  # vertices
                 # else: do nothing, vertex already in array and start_vert set
 
@@ -45,20 +43,15 @@ class Level:
                 if (i + 1) < len(air[0]):  # Next vert in arg array is next vert
                     
                     end_vert = find_from_array(air[0][i+1], level_vertices)
-                    print("End vert for MIDDLE: " + str(end_vert))
                     if end_vert == -1:
                         end_vert = vertex_index + i +1
-                        print("---overridden: " + str(end_vert))
                         level_vertices.append(air[0][i+1])  # fuck it
                 elif (i + 1) == len(air[0]):  # First vert in arg array is next vert
                     end_vert = find_from_array(air[0][0], level_vertices)
-                    print("End vert at end: " + str(end_vert))
 
                 air[2][i].set_facing_sector(this_sector)  # sidedefs
                 sidedef_index = len(level_sidedefs)
                 level_sidedefs.append(air[2][i])
-
-                print("XXXMaking lindef with: start " +str(start_vert)+ " and end: " +str(end_vert))
 
                 temp_linedef = Linedef(start_vert,
                                        end_vert,
@@ -73,6 +66,11 @@ class Level:
                         print("Error : Linedef already two-sided")
                         # if so, dunno how to fix
                     level_linedefs[lidef_index].l_side_index = sidedef_index
+
+                    
+                print("linedef start: " +str(start_vert)+ ", end: " +str(end_vert)+
+                      ", sidedefs R: " + str(level_linedefs[lidef_index].r_side_index)+
+                      ", L: " + str(level_linedefs[lidef_index].l_side_index))
 
             for thing in air[3]:  # things
                 level_things.append(thing)
