@@ -58,6 +58,8 @@ class Level:
                                        0, 0, 0,
                                        sidedef_index,
                                        -1)
+                temp_linedef.set_impassible(True)  # Might actually want to do this in constructor
+                
                 lidef_index = find_from_array(temp_linedef, level_linedefs)
                 if lidef_index == -1:
                     level_linedefs.append(temp_linedef)
@@ -66,6 +68,7 @@ class Level:
                         print("Error : Linedef already two-sided")
                         # if so, dunno how to fix
                     level_linedefs[lidef_index].l_side_index = sidedef_index
+                    level_linedefs[lidef_index].set_two_sided(True)
 
                     
                 print("linedef start: " +str(start_vert)+ ", end: " +str(end_vert)+
