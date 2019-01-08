@@ -32,10 +32,37 @@ class Linedef:
             return True
         return False
 
+    def set_impassible(self, bit):  # sic
+        self.set_flag(0, bit)
+
+    def set_block_monsters(self, bit):
+        self.set_flag(1, bit)
+
+    def set_two_sided(self, bit):
+        self.set_flag(2, bit)
+
+    def set_upper_unpegged(self, bit):
+        self.set_flag(3, bit)
+
+    def set_lower_unpegged(self, bit):
+        self.set_flag(4, bit)
+
+    def set_secret(self, bit):
+        self.set_flag(5, bit)
+
+    def set_block_sound(self, bit):
+        self.set_flag(6, bit)
+
+    def set_not_on_map(self, bit):
+        self.set_flag(7, bit)
+
+    def set_already_on_map(self, bit):
+        self.set_flag(8, bit)
+
     def set_flag(self, shift, value):
         if value != 0 and value != 1:
-            print("Error : Bad bit value for linedef flag: " +
-                  str(value))
+            print("Error : Bad bit value" + str(value) +
+                  "for linedef flag " + str(shift))
             return
 
         XORMASK = 0xffff
