@@ -1,10 +1,23 @@
 from sector import Sector
 from sidedef import Sidedef
+from enum import Enum
 
 default_wall_texture = 'CEMENT1'
 default_flat_texture = 'FLOOR0_1'
 default_floor_height = 0
 default_ceiling_height = 196
+
+
+class Lineflags(Enum):
+    IMPASSIBLE =     0x1
+    BLOCK_MONSTERS = 0x2
+    TWO_SIDED =      0x4  # This is done automatically
+    UPPER_UNPEGGED = 0x8
+    LOWER_UNPEGGED = 0x10
+    SECRET =         0x20
+    BLOCK_SOUND =    0x40
+    NOT_ON_MAP =     0x80
+    ALREADY_ON_MAP = 0x100
 
 
 class Abstract_sector:
@@ -27,6 +40,8 @@ class Abstract_sector:
                                default_wall_texture,
                                default_wall_texture,
                                0)]
+
+        self.linedef_flags = [0,0,0]
 
         self.floor_flat = default_flat_texture
         self.ceiling_flat = default_flat_texture
@@ -85,23 +100,30 @@ class Abstract_sector:
             if b1_index+1 == b2_index:
                 self.vertices.insert(b2_index, vertexn)
                 self.sidefs.insert(b2_index, sidefn)
+                self.linedef_flags[b2_index, 0]  # No flags
             elif b1_index == len(self.vertices)-1 and b2_index == 0:
                 self.vertices.append(vertexn)
                 self.sidefs.append(sidefn)
+                self.linedef_flags.append(0)  # No flags
             else:
                 print("ERROR : There is no such line in abstract sector.")
                 return False
 
         return True
 
+    def set_linedef_flag(self, index, flags):
+        self.linedef_flags[index] = flags  # User will need to bitor old flags as required
+
     def invert(self):
         if not self.__ffs__inverted_sector:
             self.__ffs__inverted_sector = True
         else:
             self.__ffs__inverted_sector = False
-        self.vertices.reverse()
+        self.vertices.reverse()  # This happens in place
+        self.sidefs.reverse()
+        self.linedef_flags.reverse()
 
-    # TODO: check for a fancy synonym for 'form':
+    # Called from Level.gather_data():
     def form_intermediate_representation(self):
 
         absec_as_sec = Sector(self.floor_height, self.ceiling_height,
@@ -115,4 +137,5 @@ class Abstract_sector:
         return [self.vertices,
                 absec_as_sec,
                 self.sidefs,
-                self.things]
+                self.things,
+                self.linedef_flags]

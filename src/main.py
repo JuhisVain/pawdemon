@@ -29,6 +29,8 @@ def main():
     as1.add_thing(thing.Thing(96, 96, 0, 1, 7))
     as1.add_vertex(vrts[3], vrts[2], vrts[0])
 
+    #as1.set_linedef_flag(2, )
+
     lev1 = testpro.add_level_by_num(1)
     lev1.add_sector(as1)
 

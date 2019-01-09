@@ -64,11 +64,37 @@ class Linedef:
             print("Error : Bad bit value" + str(value) +
                   "for linedef flag " + str(shift))
             return
-
         XORMASK = 0xffff
         shiftmask = pow(2, shift)
         value <<= shift
         self.flags = self.flags & (XORMASK ^ shiftmask) | value
+
+    def get_impassible(self):
+        return self.flags & 0x1
+
+    def get_block_monsters(self):
+        return self.flags & 0x2
+
+    def get_two_sided(self):
+        return self.flags & 0x4
+
+    def get_upper_unpegged(self):
+        return self.flags & 0x8
+
+    def get_lower_unpegged(self):
+        return self.flags & 0x10
+
+    def get_secret(self):
+        return self.flags & 0x20
+
+    def get_block_sound(self):
+        return self.flags & 0x40
+
+    def get_not_on_map(self):
+        return self.flags & 0x80
+
+    def get_already_on_map(self):
+        return self.flags & 0x100
 
     def to_binary(self):
         return struct.pack("<7h", self.start_index, self.end_index,

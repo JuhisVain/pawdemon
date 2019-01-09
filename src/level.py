@@ -55,22 +55,27 @@ class Level:
 
                 temp_linedef = Linedef(start_vert,
                                        end_vert,
-                                       0, 0, 0,
+                                       air[4][i], 0, 0,
                                        sidedef_index,
                                        -1)
-                temp_linedef.set_impassible(True)  # Might actually want to do this in constructor
                 
                 lidef_index = find_from_array(temp_linedef, level_linedefs)
-                if lidef_index == -1:
+                if lidef_index == -1:  # No linedef with same verts found
                     level_linedefs.append(temp_linedef)
-                else:
+                else:  # Linedef with same verts found
+
+                    # If both are impassable, make line impassable:
+                    if (level_linedefs[lidef_index].get_impassible()
+                        # python whitespace truly is retarded
+                        and temp_linedef.get_impassible()):
+                        level_linedefs[lidef_index].set_impassible(True)
+                        
                     if level_linedefs[lidef_index].l_side_index != -1:
                         print("Error : Linedef already two-sided")
                         # if so, dunno how to fix
                     level_linedefs[lidef_index].l_side_index = sidedef_index
                     level_linedefs[lidef_index].set_two_sided(True)
 
-                    
                 print("linedef start: " +str(start_vert)+ ", end: " +str(end_vert)+
                       ", sidedefs R: " + str(level_linedefs[lidef_index].r_side_index)+
                       ", L: " + str(level_linedefs[lidef_index].l_side_index))
