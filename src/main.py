@@ -29,7 +29,7 @@ def main():
     as1.add_thing(thing.Thing(96, 96, 0, 1, 7))
     as1.add_vertex(vrts[3], vrts[2], vrts[0])
 
-    #as1.set_linedef_flag(2, )
+    as1.set_middle_tex(1,'-')
 
     lev1 = testpro.add_level_by_num(1)
     lev1.add_sector(as1)
@@ -37,6 +37,8 @@ def main():
     vrts = [Vertex(64,192), Vertex(64,500), Vertex(300,500), Vertex(192,192)]
     as1 = Absec(vrts[0], vrts[1], vrts[2])
     as1.add_vertex(vrts[3], vrts[2], vrts[0])
+
+    as1.set_middle_tex(3,'-')
 
     lev1.add_sector(as1)
 

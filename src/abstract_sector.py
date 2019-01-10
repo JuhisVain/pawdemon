@@ -66,6 +66,15 @@ class Abstract_sector:
     def add_thing(self, new_thing):
         self.things.append(new_thing)
 
+    def set_upper_tex(self, sidedef_index, texture):
+        self.sidefs[sidedef_index].upper_tex = texture
+
+    def set_lower_tex(self, sidedef_index, texture):
+        self.sidefs[sidedef_index].lower_tex = texture
+
+    def set_middle_tex(self, sidedef_index, texture):
+        self.sidefs[sidedef_index].middle_tex = texture
+
     def add_vertex(self, vertexn, between1, between2):
         # Add a new vertex between vertices between1 & between2
         # Return True if success
