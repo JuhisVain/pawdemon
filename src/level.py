@@ -81,7 +81,15 @@ class Level:
                       ", L: " + str(level_linedefs[lidef_index].l_side_index))
 
             for thing in air[3]:  # things
+                print("Thing count:" + str(len(air[3])))
                 level_things.append(thing)
+
+        print("Level "+str(self.number)+": "+
+              "verts: "+str(len(level_vertices))+
+              " lidefs: "+str(len(level_linedefs))+
+              " secs: "+str(len(level_sectors))+
+              "sidefs: "+str(len(level_sidedefs))+
+              "things: "+str(len(level_things)))
 
         return [self.number,        # 0
                 level_vertices,     # 1
