@@ -41,10 +41,9 @@ class Level:
 
                 # Figure out ending vertex's index:
                 if (i + 1) < len(air[0]):  # Next vert in arg array is next vert
-                    
                     end_vert = find_from_array(air[0][i+1], level_vertices)
                     if end_vert == -1:
-                        end_vert = vertex_index + i +1
+                        end_vert = len(level_vertices)
                         level_vertices.append(air[0][i+1])  # fuck it
                 elif (i + 1) == len(air[0]):  # First vert in arg array is next vert
                     end_vert = find_from_array(air[0][0], level_vertices)
@@ -81,15 +80,14 @@ class Level:
                       ", L: " + str(level_linedefs[lidef_index].l_side_index))
 
             for thing in air[3]:  # things
-                print("Thing count:" + str(len(air[3])))
                 level_things.append(thing)
 
         print("Level "+str(self.number)+": "+
               "verts: "+str(len(level_vertices))+
               " lidefs: "+str(len(level_linedefs))+
               " secs: "+str(len(level_sectors))+
-              "sidefs: "+str(len(level_sidedefs))+
-              "things: "+str(len(level_things)))
+              " sidefs: "+str(len(level_sidedefs))+
+              " things: "+str(len(level_things)))
 
         return [self.number,        # 0
                 level_vertices,     # 1
