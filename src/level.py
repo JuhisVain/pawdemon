@@ -63,15 +63,12 @@ class Level:
                     level_linedefs.append(temp_linedef)
                 else:  # Linedef with same verts found
 
-                    # If both are impassable, make line impassable:
-                    if (level_linedefs[lidef_index].get_impassible()
-                        # python whitespace truly is retarded
-                        and temp_linedef.get_impassible()):
-                        level_linedefs[lidef_index].set_impassible(True)
+                    level_linedefs[lidef_index].flags |= temp_linedef.flags
                         
                     if level_linedefs[lidef_index].l_side_index != -1:
                         print("Error : Linedef already two-sided")
                         # if so, dunno how to fix
+                        
                     level_linedefs[lidef_index].l_side_index = sidedef_index
                     level_linedefs[lidef_index].set_two_sided(True)
 

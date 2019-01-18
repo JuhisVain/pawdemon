@@ -162,8 +162,8 @@ class Abstract_sector:
                               self.floor_flat, self.ceiling_flat,
                               self.light, self.special, self.tag_trigger)
 
-        return [self.vertices,
-                absec_as_sec,
-                self.sidefs,
-                self.things,
-                self.linedef_flags]
+        return [self.vertices,       # 0
+                absec_as_sec,        # 1
+                self.sidefs,         # 2
+                self.things,         # 3
+                self.linedef_flags]  # 4
