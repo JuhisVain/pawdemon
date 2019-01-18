@@ -63,6 +63,18 @@ class Abstract_sector:
         elif side_num == 0:  # v2 in line with line0/1
             print("WARNING : Formed line instead of triangle.")
 
+    def set_floor_height(self, height):
+        if height < self.ceiling_height:
+            self.floor_height = height
+        else:
+            print("Floor higher than ceiling -> Aborted")
+
+    def set_ceiling_height(self, height):
+        if height > self.floor_height:
+            self.ceiling_height = height
+        else:
+            print("Ceiling lower than floor -> Aborted")
+
     def add_thing(self, new_thing):
         self.things.append(new_thing)
 
@@ -138,10 +150,6 @@ class Abstract_sector:
         absec_as_sec = Sector(self.floor_height, self.ceiling_height,
                               self.floor_flat, self.ceiling_flat,
                               self.light, self.special, self.tag_trigger)
-
-        # This is proly not needed:
-        updated_sidefs = list(map(lambda sd: sd.set_facing_sector(absec_as_sec),
-                                  self.sidefs))
 
         return [self.vertices,
                 absec_as_sec,

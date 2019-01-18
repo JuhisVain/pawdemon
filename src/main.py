@@ -30,18 +30,25 @@ def main():
     asec = Absec(Vertex(0,0),Vertex(0,200),Vertex(200,200))
     asec.add_vertex(Vertex(200,0),Vertex(200,200),Vertex(0,0))
     asec.add_thing(thing.Thing(96, 96, 0, 1, 7))
+    asec.set_ceiling_height(128)
+    asec.set_middle_tex(1,"-")
     lev1.add_sector(asec)
 
     asec = Absec(Vertex(0,200),Vertex(0,400),Vertex(200,400))
     asec.add_vertex(Vertex(200,200),Vertex(200,400),Vertex(0,200))
+    asec.set_ceiling_height(160)
+    asec.set_floor_height(15)
+    asec.set_middle_tex(2,"-")
     lev1.add_sector(asec)
 
     asec = Absec(Vertex(200,400),Vertex(400,400),Vertex(400,200))
     asec.add_vertex(Vertex(200,200),Vertex(400,200),Vertex(200,400))
+    asec.set_floor_height(25)
     lev1.add_sector(asec)
     
     asec = Absec(Vertex(200,0),Vertex(200,200),Vertex(400,200))
     asec.add_vertex(Vertex(400,0),Vertex(400,200),Vertex(200,0))
+    asec.set_floor_height(40)
     lev1.add_sector(asec)
 
     testpro.compile()
