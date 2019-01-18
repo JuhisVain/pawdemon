@@ -23,8 +23,6 @@ import tool
 
 def main():
 
-    
-
     testpro = Project(2)
     lev1 = testpro.add_level_by_num(1)
 
@@ -54,7 +52,8 @@ def main():
     asec.add_vertex(Vertex(500,100), Vertex(400,200), Vertex(400,0))
     asec.set_floor_height(40)
     asec.set_middle_tex(0,"-")
-    asec.set_linedef_flag(0, ASC.SECRET)
+    asec.set_linedef_flag(0, ASC.SECRET_WALL)
+    asec.set_special(ASC.SECRET)
     lev1.add_sector(asec)
 
     testpro.compile()

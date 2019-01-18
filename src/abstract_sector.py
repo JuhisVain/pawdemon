@@ -8,14 +8,14 @@ default_floor_height = 0
 default_ceiling_height = 196
 
 
-class ASC(IntEnum):
+class ASC(IntEnum): # maybe these should have their own enums...
     # Linedef flags:
     IMPASSIBLE =     0x1
     BLOCK_MONSTERS = 0x2
     TWO_SIDED =      0x4  # This is done automatically
     UPPER_UNPEGGED = 0x8
     LOWER_UNPEGGED = 0x10
-    SECRET =         0x20
+    SECRET_WALL =    0x20
     BLOCK_SOUND =    0x40
     NOT_ON_MAP =     0x80
     ALREADY_ON_MAP = 0x100
@@ -29,6 +29,24 @@ class ASC(IntEnum):
     SOUTHWEST = 225
     SOUTH = 270
     SOUTHEAST = 315
+
+    # Specials:
+    NONE = 0
+    RANDOM_OFF = 1
+    HALFSEC_BLINK = 2
+    FULLSEC_BLINK = 3
+    DAMAGE_BLINK = 4
+    FIVETEN_DAMAGE = 5
+    TWOFIVE_DAMAGE = 7
+    OSCILLATE = 8
+    SECRET = 9
+    THIRTY_CLOSE = 10
+    DEATH_END = 11
+    SYNC_HALFSEC_BLINK = 12
+    SYNC_FULLSEC_BLINK = 13
+    THREEHUNDRED_OPEN = 14
+    TENTWENTY_DAMAGE = 16
+    RANDOM_FLICKER = 17  # won't work before doom v1.666
 
 
 class Abstract_sector:
@@ -97,6 +115,11 @@ class Abstract_sector:
 
     def set_middle_tex(self, sidedef_index, texture):
         self.sidefs[sidedef_index].middle_tex = texture
+
+    def set_special(self, special):
+    # A sector can only have one special feature
+        self.special = special
+        
 
     def add_vertex(self, vertexn, between1, between2):
         # Add a new vertex between vertices between1 & between2
