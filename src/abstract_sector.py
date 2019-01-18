@@ -1,6 +1,6 @@
 from sector import Sector
 from sidedef import Sidedef
-from enum import Enum
+from enum import IntEnum
 
 default_wall_texture = 'CEMENT1'
 default_flat_texture = 'FLOOR0_1'
@@ -8,7 +8,8 @@ default_floor_height = 0
 default_ceiling_height = 196
 
 
-class Lineflags(Enum):
+class ASC(IntEnum):
+    # Linedef flags:
     IMPASSIBLE =     0x1
     BLOCK_MONSTERS = 0x2
     TWO_SIDED =      0x4  # This is done automatically
@@ -18,6 +19,16 @@ class Lineflags(Enum):
     BLOCK_SOUND =    0x40
     NOT_ON_MAP =     0x80
     ALREADY_ON_MAP = 0x100
+
+    # Directions:
+    EAST = 0
+    NORTHEAST = 45
+    NORTH = 90
+    NORTHWEST = 135
+    WEST = 180
+    SOUTHWEST = 225
+    SOUTH = 270
+    SOUTHEAST = 315
 
 
 class Abstract_sector:
