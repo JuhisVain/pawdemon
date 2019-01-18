@@ -129,10 +129,10 @@ class Abstract_sector:
                              default_wall_texture,
                              default_wall_texture,
                              0)
-            if b1_index+1 == b2_index:
+            if b1_index+1 == b2_index:  # If trying to place new vert in middle
                 self.vertices.insert(b2_index, vertexn)
                 self.sidefs.insert(b2_index, sidefn)
-                self.linedef_flags[b2_index, 0]  # No flags
+                self.linedef_flags.insert(b2_index, 0)  # No flags
             elif b1_index == len(self.vertices)-1 and b2_index == 0:
                 self.vertices.append(vertexn)
                 self.sidefs.append(sidefn)

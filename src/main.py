@@ -51,6 +51,7 @@ def main():
     
     asec = Absec(Vertex(200,0),Vertex(200,200),Vertex(400,200))
     asec.add_vertex(Vertex(400,0),Vertex(400,200),Vertex(200,0))
+    asec.add_vertex(Vertex(500,100), Vertex(400,200), Vertex(400,0))
     asec.set_floor_height(40)
     asec.set_middle_tex(0,"-")
     asec.set_linedef_flag(0, ASC.SECRET)
