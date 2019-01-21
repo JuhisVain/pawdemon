@@ -56,6 +56,14 @@ def main():
     asec.set_special(ASC.SECRET)
     lev1.add_sector(asec)
 
+    # Let's make level end
+    asec = Absec(Vertex(500,100), Vertex(550,75), Vertex(550,-25))
+    asec.add_vertex(Vertex(400,0), Vertex(550,-25), Vertex(500,100))
+    asec.set_floor_height(45)
+    asec.set_middle_tex(3, "-")
+    asec.set_linedef_type(3, 52)  # Should set linedef to walk over for end level
+    lev1.add_sector(asec)
+
     testpro.compile()
     # The resulting file will need to be ran through a nodebuilder such as BSP
 

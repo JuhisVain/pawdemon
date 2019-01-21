@@ -32,6 +32,16 @@ class Linedef:
             return True
         return False
 
+    def set_line_type(self, line_type):
+        if self.line_type == 0:
+            self.line_type = line_type
+        elif line_type == 0:
+            return
+        else:
+            print("WARNING : Overwriting old linetype: "
+                  +str(self.line_type)+" with: "+str(line_type))
+            self.line_type = line_type
+
     def set_impassible(self, bit):  # sic
         self.set_flag(0, bit)
 

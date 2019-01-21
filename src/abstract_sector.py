@@ -71,6 +71,7 @@ class Abstract_sector:
                                0)]
 
         self.linedef_flags = [0,0,0]
+        self.linedef_types = [0,0,0]
 
         self.floor_flat = default_flat_texture
         self.ceiling_flat = default_flat_texture
@@ -156,10 +157,12 @@ class Abstract_sector:
                 self.vertices.insert(b2_index, vertexn)
                 self.sidefs.insert(b2_index, sidefn)
                 self.linedef_flags.insert(b2_index, 0)  # No flags
+                self.linedef_types.insert(b2_index, 0)
             elif b1_index == len(self.vertices)-1 and b2_index == 0:
                 self.vertices.append(vertexn)
                 self.sidefs.append(sidefn)
                 self.linedef_flags.append(0)  # No flags
+                self.linedef_types.append(0)
             else:
                 print("ERROR : There is no such line in abstract sector.")
                 return False
@@ -167,7 +170,10 @@ class Abstract_sector:
         return True
 
     def set_linedef_flag(self, index, flags):
-        self.linedef_flags[index] = flags  # User will need to bitor old flags as required
+        self.linedef_flags[index] = flags
+
+    def set_linedef_type(self, index, func_id):
+        self.linedef_types[index] = func_id
 
     def invert(self):
         if not self.__ffs__inverted_sector:
@@ -177,6 +183,7 @@ class Abstract_sector:
         self.vertices.reverse()  # This happens in place
         self.sidefs.reverse()
         self.linedef_flags.reverse()
+        self.linedef_types.reverse()
 
     # Called from Level.gather_data():
     def form_intermediate_representation(self):
@@ -189,4 +196,5 @@ class Abstract_sector:
                 absec_as_sec,        # 1
                 self.sidefs,         # 2
                 self.things,         # 3
-                self.linedef_flags]  # 4
+                self.linedef_flags,  # 4
+                self.linedef_types]  # 5

@@ -12,4 +12,4 @@ class Vertex:
         return False
 
     def to_binary(self):
-        return struct.pack("<HH", self.x, self.y)
+        return struct.pack("<hh", self.x, self.y)

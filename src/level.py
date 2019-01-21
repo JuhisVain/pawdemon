@@ -54,7 +54,7 @@ class Level:
 
                 temp_linedef = Linedef(start_vert,
                                        end_vert,
-                                       air[4][i], 0, 0,
+                                       air[4][i], air[5][i], 0,
                                        sidedef_index,
                                        -1)
                 
@@ -64,7 +64,8 @@ class Level:
                 else:  # Linedef with same verts found
 
                     level_linedefs[lidef_index].flags |= temp_linedef.flags
-                        
+                    level_linedefs[lidef_index].set_line_type(temp_linedef.line_type)
+
                     if level_linedefs[lidef_index].l_side_index != -1:
                         print("Error : Linedef already two-sided")
                         # if so, dunno how to fix
