@@ -54,8 +54,15 @@ class s_special(IntEnum):
 
 
 class Abstract_sector:
-    def __init__(self, v0, v1, v2):
-        
+
+    def __init__(self, *vertices):
+        self.vertices = vertices
+        if len(self.vertices) >= 3:
+            self.__internal_init(vertices[0],vertices[1],vertices[2])
+            for i in range(3, len(vertices)):
+                self.append_vertex(vertices[i])
+
+    def __internal_init(self, v0, v1, v2):
         # Initially only hold minimum amount to form CLOSED triangle
         self.vertices = [v0, v1, v2]
         self.sidefs = [Sidedef(0, 0,  # xy offsets
@@ -124,7 +131,6 @@ class Abstract_sector:
     def set_special(self, special):
     # A sector can only have one special feature
         self.special = special
-        
 
     def add_vertex(self, vertexn, between1, between2):
         # Add a new vertex between vertices between1 & between2
@@ -172,6 +178,11 @@ class Abstract_sector:
                 return False
 
         return True
+
+    def append_vertex(self, vertexn):
+        self.add_vertex(vertexn,
+                        self.vertices[len(self.vertices) - 1],
+                        self.vertices[0])
 
     def set_linedef_flag(self, index, flags):
         self.linedef_flags[index] = flags

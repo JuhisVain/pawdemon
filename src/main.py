@@ -39,6 +39,18 @@ def main():
     asec.set_ceiling_height(160)
     asec.set_floor_height(15)
     asec.set_middle_tex(2,"-")
+    asec.set_middle_tex(1,"-")
+    lev1.add_sector(asec)
+
+    asec = Absec(Vertex(0, 400),
+                 Vertex(-100, 500),
+                 Vertex(0, 800),
+                 Vertex(200, 750),
+                 Vertex(250, 450),
+                 Vertex(200, 400))
+    asec.set_ceiling_height(140)
+    asec.set_floor_height(20)
+    asec.set_middle_tex(5, "-")
     lev1.add_sector(asec)
 
     asec = Absec(Vertex(200,400),Vertex(400,400),Vertex(400,200))
