@@ -8,7 +8,7 @@ default_floor_height = 0
 default_ceiling_height = 196
 
 
-class ASC(IntEnum): # maybe these should have their own enums...
+class ld_flag(IntEnum):
     # Linedef flags:
     IMPASSIBLE =     0x1
     BLOCK_MONSTERS = 0x2
@@ -20,6 +20,8 @@ class ASC(IntEnum): # maybe these should have their own enums...
     NOT_ON_MAP =     0x80
     ALREADY_ON_MAP = 0x100
 
+
+class direction(IntEnum):
     # Directions:
     EAST = 0
     NORTHEAST = 45
@@ -30,6 +32,8 @@ class ASC(IntEnum): # maybe these should have their own enums...
     SOUTH = 270
     SOUTHEAST = 315
 
+
+class s_special(IntEnum):
     # Specials:
     NONE = 0
     RANDOM_OFF = 1

@@ -14,7 +14,7 @@ import node
 import compiler
 
 from abstract_sector import Abstract_sector as Absec
-from abstract_sector import ASC
+from abstract_sector import ld_flag, direction, s_special
 from project import Project
 from level import Level
 
@@ -28,7 +28,7 @@ def main():
 
     asec = Absec(Vertex(0,0),Vertex(0,200),Vertex(200,200))
     asec.add_vertex(Vertex(200,0),Vertex(200,200),Vertex(0,0))
-    asec.add_thing(thing.Thing(96, 96, ASC.EAST, 1, 7))
+    asec.add_thing(thing.Thing(96, 96, direction.EAST, 1, 7))
     asec.set_ceiling_height(128)
     asec.set_middle_tex(1,"-")
     asec.set_middle_tex(2,"-")
@@ -44,7 +44,7 @@ def main():
     asec = Absec(Vertex(200,400),Vertex(400,400),Vertex(400,200))
     asec.add_vertex(Vertex(200,200),Vertex(400,200),Vertex(200,400))
     asec.set_floor_height(25)
-    asec.add_thing(thing.Thing(300, 300, ASC.NORTHEAST, 3004, 7))  # normal gundude
+    asec.add_thing(thing.Thing(300, 300, direction.NORTHEAST, 3004, 7))  # normal gundude
     lev1.add_sector(asec)
     
     asec = Absec(Vertex(200,0),Vertex(200,200),Vertex(400,200))
@@ -52,8 +52,8 @@ def main():
     asec.add_vertex(Vertex(500,100), Vertex(400,200), Vertex(400,0))
     asec.set_floor_height(40)
     asec.set_middle_tex(0,"-")
-    asec.set_linedef_flag(0, ASC.SECRET_WALL)
-    asec.set_special(ASC.SECRET)
+    asec.set_linedef_flag(0, ld_flag.SECRET_WALL)
+    asec.set_special(s_special.SECRET)
     lev1.add_sector(asec)
 
     # Let's make level end
