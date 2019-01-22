@@ -60,7 +60,7 @@ class Node:
         self.left_child = left_child
 
     def to_binary(self):
-        return struct.pack("<14H",
+        return struct.pack("<14h",
                            self.x_line_start,
                            self.y_line_start,
                            self.dx, self.dy,

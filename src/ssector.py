@@ -11,4 +11,4 @@ class Ssector:
         self.start_seg_index = start_seg_index
 
     def to_binary(self):
-        return struct.pack("<HH", self.seg_amount, self.start_seg_index)
+        return struct.pack("<hh", self.seg_amount, self.start_seg_index)

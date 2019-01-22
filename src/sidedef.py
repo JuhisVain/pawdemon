@@ -24,7 +24,7 @@ class Sidedef:
             print("ERROR in sidedef to binary. Facing sector not index.")
             return 'ERROR'
 
-        return struct.pack("<HH8s8s8sH", self.x_offset, self.y_offset,
+        return struct.pack("<hh8s8s8sh", self.x_offset, self.y_offset,
                            bytes(self.upper_tex, 'utf-8'),
                            bytes(self.lower_tex, 'utf-8'),
                            bytes(self.middle_tex, 'utf-8'),

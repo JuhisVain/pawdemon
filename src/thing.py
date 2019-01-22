@@ -16,5 +16,5 @@ class Thing:
         self.options = options
         
     def to_binary(self):
-        return struct.pack("<HHHHH", self.x, self.y, self.angle, self.thing_type, self.options)
+        return struct.pack("<5h", self.x, self.y, self.angle, self.thing_type, self.options)
         

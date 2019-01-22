@@ -24,7 +24,7 @@ class Seg:
         self.offset = offset
 
     def to_binary(self):
-        return struct.pack("<HHHHHH", self.start_index,
+        return struct.pack("<6h", self.start_index,
                            self.end_index, self.angle,
                            self.linedef, self.direction,
                            self.offset)

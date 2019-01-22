@@ -49,7 +49,7 @@ class Blockmap:
                 insert_ushort(iter_count, blocklist_offsets, offset)
                 iter_count += 2
 
-        return struct.pack('<4H', self.x_grid_origin, self.y_grid_origin,
+        return struct.pack('<4h', self.x_grid_origin, self.y_grid_origin,
                            self.col_count, self.row_count) + blocklist_offsets + blocklist_array
 
 
