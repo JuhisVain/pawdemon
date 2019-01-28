@@ -56,6 +56,7 @@ class s_special(IntEnum):
 class Abstract_sector:
 
     def __init__(self, *vertices):
+        # Gotta get 3 or more verts
         self.vertices = vertices
         if len(self.vertices) >= 3:
             self.__internal_init(vertices[0],vertices[1],vertices[2])
