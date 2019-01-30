@@ -26,8 +26,8 @@ class Level:
             this_sector = len(level_sectors)
             level_sectors.append(air[1])  # sector
 
-            if vertex_index > 0:  # ???
-                vertex_index -= 1
+            #if vertex_index > 0:# this fixed something, removing also fixes something
+            #    vertex_index -= 1
 
             for i in range(len(air[0])):  # vertices, sidedefs & linedefs
 
@@ -99,4 +99,6 @@ def find_from_array(element, array):  # from unordered array, returns index
     for i in range(len(array)):
         if element == array[i]:
             return i
+    if type(element) is Vertex:
+        print(str(element.x)+","+str(element.y)+" not found in array")
     return -1

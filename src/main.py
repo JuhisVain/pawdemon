@@ -26,6 +26,73 @@ def main():
     testpro = Project(2)
     lev1 = testpro.add_level_by_num(1)
 
+    sta = 8  # stair height
+    cor = 196  # standard corridor width
+
+    curh = 400  # current floor height
+    curcei = 500  # current ceiling height
+
+    asec = Absec([0,0],
+                 [0,1.5*cor],
+                 [cor,1.5*cor],
+                 [cor,cor],
+                 [3.5*cor,cor],
+                 [3.5*cor,-cor],
+                 [4.5*cor,-cor],
+                 [4.5*cor,0],
+                 [5*cor,0],
+                 [6*cor,0],  # RA ledge start
+                 [6*cor,2.5*cor],
+                 [5.7*cor, 2.7*cor],
+                 [5.7*cor, 3.1*cor],
+                 [6*cor, 3.3*cor],
+                 [6.3*cor, 3.1*cor],
+                 [6.3*cor, 2.7*cor],
+                 [6.1*cor, 2.5*cor],
+                 [6.1*cor,-0.1*cor],
+                 [6*cor, -0.2*cor],  # RA ledge end
+                 [6*cor,-2*cor],
+                 [2.5*cor,-2*cor],
+                 [2.5*cor,0])
+    asec.set_ceiling_height(curcei)
+    asec.set_floor_height(curh)
+    
+    asec.add_thing(thing.Thing(50, 50, direction.NORTH, 1, 7))
+    lev1.add_sector(asec)
+
+    asec = Absec([0,2*cor],
+                 [0,4*cor],
+                 [cor,4*cor],
+                 [cor,2*cor])
+    asec.set_ceiling_height(curcei)
+    asec.set_floor_height(curh)
+    lev1.add_sector(asec)
+
+    asec = Absec([0,4.5*cor],
+                 [0,5.5*cor],
+                 [4.5*cor,5.5*cor],
+                 [4.5*cor,4.8*cor],
+                 [cor, 4.8*cor],
+                 [cor, 4.5*cor])
+    asec.set_ceiling_height(curcei)
+    asec.set_floor_height(curh)
+    lev1.add_sector(asec)
+
+    curh = 200
+    
+    asec = Absec([0,1.5*cor],
+                 [0,2*cor],
+                 [cor,2*cor],
+                 [cor,1.5*cor])
+    asec.set_ceiling_height(curcei)
+    asec.set_floor_height(curh)
+    lev1.add_sector(asec)
+
+
+
+    testpro.compile()
+    
+    
     #asec = Absec(Vertex(0,0),Vertex(0,200),Vertex(200,200))
     asec = Absec([0,0],[0,200],[200,200])
     asec.add_vertex(Vertex(200,0),Vertex(200,200),Vertex(0,0))
@@ -77,7 +144,7 @@ def main():
     asec.set_linedef_type(3, 52)  # Should set linedef to walk over for end level
     lev1.add_sector(asec)
 
-    testpro.compile()
+    #testpro.compile()
     # The resulting file will need to be ran through a nodebuilder such as BSP
 
 
