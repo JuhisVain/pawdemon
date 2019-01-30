@@ -1,5 +1,6 @@
 from sector import Sector
 from sidedef import Sidedef
+from vertex import Vertex
 from enum import IntEnum
 
 default_wall_texture = 'CEMENT1'
@@ -53,15 +54,25 @@ class s_special(IntEnum):
     RANDOM_FLICKER = 17  # won't work before doom v1.666
 
 
+def formvert(pot_vert):
+    # Form vertex if input not Vertex
+    if type(pot_vert) is list:
+        return Vertex(*pot_vert)  # that's a nice though unreadable feature
+    elif type(pot_vert) is Vertex:
+        return pot_vert
+
+
 class Abstract_sector:
 
     def __init__(self, *vertices):
         # Gotta get 3 or more verts
         self.vertices = vertices
         if len(self.vertices) >= 3:
-            self.__internal_init(vertices[0],vertices[1],vertices[2])
+            self.__internal_init(formvert(vertices[0]),
+                                 formvert(vertices[1]),
+                                 formvert(vertices[2]))
             for i in range(3, len(vertices)):
-                self.append_vertex(vertices[i])
+                self.append_vertex(formvert(vertices[i]))
 
     def __internal_init(self, v0, v1, v2):
         # Initially only hold minimum amount to form CLOSED triangle
@@ -136,6 +147,9 @@ class Abstract_sector:
     def add_vertex(self, vertexn, between1, between2):
         # Add a new vertex between vertices between1 & between2
         # Return True if success
+        vertexn = formvert(vertexn)
+        between1 = formvert(between1)
+        between2 = formvert(between2)
         if vertexn == between1 or vertexn == between2 or between1 == between2:
             print("ERROR : goofy arguments for add_vertex.")
             return False  # throwing exceptions is for scrubs

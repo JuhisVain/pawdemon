@@ -26,7 +26,8 @@ def main():
     testpro = Project(2)
     lev1 = testpro.add_level_by_num(1)
 
-    asec = Absec(Vertex(0,0),Vertex(0,200),Vertex(200,200))
+    #asec = Absec(Vertex(0,0),Vertex(0,200),Vertex(200,200))
+    asec = Absec([0,0],[0,200],[200,200])
     asec.add_vertex(Vertex(200,0),Vertex(200,200),Vertex(0,0))
     asec.add_thing(thing.Thing(96, 96, direction.EAST, 1, 7))
     asec.set_ceiling_height(128)
