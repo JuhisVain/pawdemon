@@ -4,6 +4,7 @@ from vertex import Vertex
 from enum import IntEnum
 
 default_wall_texture = 'CEMENT1'
+no_wall_texture = '-'
 default_flat_texture = 'FLOOR0_1'
 default_floor_height = 0
 default_ceiling_height = 196

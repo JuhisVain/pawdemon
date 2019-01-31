@@ -71,6 +71,10 @@ class Level:
                         # if so, dunno how to fix
                         
                     level_linedefs[lidef_index].l_side_index = sidedef_index
+
+                    level_sidedefs[level_linedefs[lidef_index].r_side_index].set_middle("-")
+                    level_sidedefs[level_linedefs[lidef_index].l_side_index].set_middle("-")
+
                     level_linedefs[lidef_index].set_two_sided(True)
 
                 print("linedef start: " +str(start_vert)+ ", end: " +str(end_vert)+

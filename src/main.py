@@ -56,7 +56,6 @@ def main():
                  [2.5*cor,0])
     asec.set_ceiling_height(curcei)
     asec.set_floor_height(curh)
-    
     asec.add_thing(thing.Thing(50, 50, direction.NORTH, 1, 7))
     lev1.add_sector(asec)
 
@@ -88,7 +87,13 @@ def main():
     asec.set_floor_height(curh)
     lev1.add_sector(asec)
 
-
+    asec = Absec([0,4*cor],
+                 [0,4.5*cor],
+                 [cor,4.5*cor],
+                 [cor,4*cor])
+    asec.set_ceiling_height(curcei)
+    asec.set_floor_height(curh)
+    lev1.add_sector(asec)
 
     testpro.compile()
     
